@@ -1,105 +1,253 @@
-# Deepfake Image Detection with EfficientNet, FasterViT, and EfficientFormerV2
+# Deepfake-Based Identity Fraud Detection
 
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
-![License](https://img.shields.io/github/license/thourihan/DeepfakeDetection.svg)
-![GitHub release](https://img.shields.io/github/v/release/thourihan/DeepfakeDetection.svg)
-![Last Commit](https://img.shields.io/github/last-commit/thourihan/DeepfakeDetection.svg)
-![Stars](https://img.shields.io/github/stars/thourihan/DeepfakeDetection?style=social)
 ![Framework](https://img.shields.io/badge/framework-PyTorch-red.svg)
+![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Project Overview
-This project detects deepfake images using modern CNN/ViT-family backbones. We use EfficientNet, FasterViT, and EfficientFormerV2-S1 to balance speed and accuracy, and to diversify architectures to reduce brittleness to dataset-specific artifacts. Models are integrated via `timm`, with reproducible training/evaluation and Grad-CAM visualizations.
 
-Check out the research paper [here](https://docs.google.com/document/d/1Duh0sKFxBPB-_-t1U8HRtR3py7OVKb715McTbgyHh7Q/edit?usp=sharing)!
+Deepfake-Based Identity Fraud Detection is a deep learning-based system developed to identify manipulated facial images used for identity fraud. The project utilizes multiple state-of-the-art convolutional and vision transformer architectures to accurately classify images as **Real** or **Deepfake** while providing visual explanations through Grad-CAM.
+
+The system is designed for applications requiring secure digital identity verification, including banking KYC, online examinations, recruitment platforms, government identity verification, and social media account protection.
+
+By combining multiple deep learning backbones, the project aims to improve detection robustness against different types of AI-generated facial manipulations while maintaining efficient inference performance.
+
+---
 
 ## Features
-- **Multiple Backbones (via timm):** EfficientNet, FasterViT, and EfficientFormerV2-S1 for complementary accuracy/latency trade-offs.
-- **Gradio Interface:** Simple web UI for uploading images and viewing model predictions.
-- **Grad-CAM Visualization:** Heatmaps highlighting the regions driving model decisions (available across models).
-- **Training & Evaluation Scripts:** Scripts for training and evaluation with Grad-CAM outputs. 
 
-## Sample Predictions and Heatmap Visualizations
-Here are a couple of examples of the model's output, along with heatmap visualizations for each.
+- Multiple Deep Learning Backbones using **timm**
+- Deepfake Image Classification
+- Grad-CAM Heatmap Visualization
+- Interactive Web Interface
+- Configurable Training and Inference Pipelines
+- YAML-based Experiment Configuration
+- Model Evaluation with Performance Metrics
+- Confusion Matrix and ROC Curve Generation
+- Modular Architecture for Easy Extension
 
-### Deepfake Detection Example
-**Mark Zuckerberg Deepfake**  
-Predictions:  
-EfficientNet: fake (62.11% confidence)  
-FasterViT: fake (97.33% confidence)
+---
 
-<table>
-  <tr>
-    <td>
-      <p><strong>Input Image</strong></p>
-      <img src="docs/images/mark-zuckerberg-deepfake.webp" alt="Mark Zuckerberg Deepfake" width="361" height="224"/>
-    </td>
-    <td>
-      <p><strong>Heatmap Visualization</strong></p>
-      <img src="docs/images/mark-zuckerberg-deepfake-heatmap.png" alt="Heatmap of Mark Zuckerberg Deepfake" width="224" height="224"/>
-    </td>
-  </tr>
-</table>
+## Supported Models
 
-### Real Image Detection Example
-**Donald Trump Real**  
-Predictions:  
-EfficientNet: real (97.83% confidence)  
-FasterViT: real (98.55% confidence)
+The project currently supports the following deep learning architectures:
 
-<table>
-  <tr>
-    <td>
-      <p><strong>Input Image</strong></p>
-      <img src="docs/images/donald-trump-real.jpg" alt="Donald Trump Real" width="301" height="224"/>
-    </td>
-    <td>
-      <p><strong>Heatmap Visualization</strong></p>
-      <img src="docs/images/donald-trump-real-heatmap.png" alt="Heatmap of Donald Trump Real" width="224" height="224"/>
-    </td>
-  </tr>
-</table>
+- EfficientNet
+- FasterViT
+- EfficientFormerV2-S1
+
+Each model offers a different balance between prediction accuracy, computational efficiency, and inference speed.
+
+---
+
+## Applications
+
+- Digital Identity Verification
+- Banking KYC Systems
+- Online Examination Proctoring
+- Video Interview Verification
+- Government e-Governance Services
+- Cybersecurity
+- Social Media Identity Protection
+
+---
+
+## Project Workflow
+
+```
+Input Image
+      │
+      ▼
+Image Preprocessing
+      │
+      ▼
+Deep Learning Model
+(EfficientNet / FasterViT / EfficientFormerV2)
+      │
+      ▼
+Prediction
+(Real / Deepfake)
+      │
+      ▼
+Confidence Score
+      │
+      ▼
+Grad-CAM Visualization
+      │
+      ▼
+Final Result
+```
+
+---
+
+## Project Structure
+
+```
+Deepfake-Based-Identity-Fraud-Detection/
+
+├── config/
+├── docs/
+│   └── images/
+├── orchestration/
+├── trainers/
+├── tests/
+├── inference.py
+├── train.py
+├── web_ui.py
+├── requirements.txt
+├── README.md
+└── LICENSE
+```
+
+---
 
 ## Installation
-To set up the project, follow these steps:
-1. **Clone the repository.**
-2. **Install dependencies:** We use Python 3.12+  
-   Install with:
-   ```bash
-   pip install -r requirements.txt
-   ```
 
-## Orchestrating runs (training & inference)
+Clone the repository
 
-There are three main entrypoints, all routed through `orchestrator.py` and driven by YAML configs under `config/`:
+```bash
+git clone https://github.com/Divyanshi-00001/Deepfake-Based-Identity-Fraud-Detection.git
+```
 
-- **`train.py`**: trains the models listed under `models:` in `config/train.yaml` (or a custom config).
-- **`inference.py`**: runs batch evaluation using `config/inference.yaml`, logging metrics, plots, and confusion matrices.
-- **`web_ui.py`**: launches a browser-based Gradio UI for single-image inference and Grad-CAM overlays, using the same config and `selection` as the orchestrator.
+Move to the project directory
 
-### Commands
+```bash
+cd Deepfake-Based-Identity-Fraud-Detection
+```
 
-1. **Train models listed in `config/train.yaml`:**
-   ```bash
-   python train.py
-   ```
+Create a virtual environment (optional)
 
-2. **Evaluate models defined in `config/inference.yaml`:**
-   ```bash
-   python inference.py
-   ```
+```bash
+python -m venv venv
+```
 
-3. **Run the interactive web UI (Grad-CAM enabled):**
-   ```bash
-   python web_ui.py --config config/inference.yaml
-   ```
-   - Honors the YAML’s `models` and `selection` so the UI stays in sync with orchestrator runs.
-   - Uses the per-model transforms and weight paths from the config (relative to the current working directory or absolute paths).
-   - Exports CAM composites to `outputs/cam_exports/`.
+Activate the virtual environment
 
-Pass `--config` to any script to point at an alternate YAML while keeping the same structure.
+Windows
 
-Each run directory contains `checkpoints/` (latest & best checkpoints), `logs/` (console outputs), and `plots/` (confusion matrix and ROC curve when labels are available). The setup targets frame-level deepfake vs. real classification but works for multiclass `ImageFolder` datasets as well.
+```bash
+venv\Scripts\activate
+```
 
-### Per-model transform toggles
+Linux / macOS
 
-Every transform in the training and evaluation pipelines can be toggled on or off per backbone. Add a `transforms:` block under each `models.<name>` entry in the YAML config and enable the transforms you need for training/inference for each model.
+```bash
+source venv/bin/activate
+```
+
+Install the required dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Running the Project
+
+### Train Models
+
+```bash
+python train.py
+```
+
+This command trains the models defined in the training configuration file and saves the trained checkpoints.
+
+---
+
+### Model Evaluation
+
+```bash
+python inference.py
+```
+
+This command evaluates trained models, generates predictions, computes evaluation metrics, and saves confusion matrices and ROC curves.
+
+---
+
+### Launch the Web Interface
+
+```bash
+python web_ui.py --config config/inference.yaml
+```
+
+The interactive interface allows users to:
+
+- Upload an image
+- Detect whether it is Real or Deepfake
+- View confidence scores
+- Generate Grad-CAM heatmaps
+- Compare predictions across multiple models
+
+---
+
+## Configuration
+
+Project settings are managed through YAML configuration files located in the `config/` directory.
+
+These configuration files allow customization of:
+
+- Dataset location
+- Model selection
+- Hyperparameters
+- Batch size
+- Learning rate
+- Image size
+- Checkpoint paths
+- Data augmentation
+- Evaluation settings
+
+---
+
+## Output
+
+After execution, the project generates:
+
+- Trained model checkpoints
+- Evaluation metrics
+- Prediction results
+- Confusion Matrix
+- ROC Curve
+- Grad-CAM visualizations
+- Logs
+
+---
+
+## Future Enhancements
+
+- Real-time webcam deepfake detection
+- Video-level deepfake detection
+- Face Anti-Spoofing integration
+- Multi-modal deepfake detection
+- Explainable AI dashboard
+- Mobile application support
+- Cloud deployment
+- Blockchain-assisted identity verification
+- Agentic AI for automated fraud investigation
+
+---
+
+## Research Applications
+
+This project can be applied in:
+
+- Identity Fraud Detection
+- AI-generated Media Detection
+- Digital Forensics
+- Cybersecurity
+- Biometric Authentication
+- Trustworthy Artificial Intelligence
+- Financial Technology (FinTech)
+
+---
+
+## License
+
+This project is released under the MIT License.
+
+---
+
+## Acknowledgements
+
+This project is developed for educational and research purposes. It utilizes open-source deep learning frameworks including PyTorch, timm, OpenCV, and Grad-CAM methodologies for explainable AI.
