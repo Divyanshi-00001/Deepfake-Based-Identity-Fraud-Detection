@@ -242,11 +242,6 @@ This project can be applied in:
 
 ---
 
-## License
-
-This project is released under the MIT License.
-
----
 
 ## Acknowledgements
 
